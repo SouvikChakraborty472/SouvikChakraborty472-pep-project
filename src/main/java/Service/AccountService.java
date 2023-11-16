@@ -6,7 +6,7 @@ import DAO.AccountDAO;
 
 
 public class AccountService {
-    private static AccountDAO accountDAO;
+    AccountDAO accountDAO;
 
 public AccountService(){
     accountDAO = new AccountDAO();
@@ -16,22 +16,28 @@ public AccountService(AccountDAO accountDAO){
     this.accountDAO = accountDAO;
 }
 
-public static boolean containsKey(String Username) {
-    return accountDAO.checkUsername(Username);
-
+public Account addAccount(Account account)
+{
+     return accountDAO.createAccount(account);
 }
 
-public Account createAccount(Account account) {
-    return accountDAO.insertNewAccount(account);
+
+public Account verifyLogin(Account account)
+{
+  return accountDAO.verifyTheAccount(account);
 }
 
-public Account authenticateAccount(Account account) {
-    if (account == null || account.getUsername() == null || account.getPassword() == null) {
-        return null;
-    }
-    
-    Account authenticaAccount = accountDAO.accountLogin(account);
-    return authenticaAccount;
+//GET THE ACCOUNT BY USERNAME FOR VERIFYING 
+public Account getUserByUserName(Account account)
+{
+  return accountDAO.getTheAccountByUsername(account.getUsername());
 }
+ //GET THE ACCOUNT BY USER_ID FOR VERIFING
+public Account getUserByUserId(Account account)
+{
+  return accountDAO.getAccountByUser_Id(account.getAccount_id());
+}
+
+
 
 }
